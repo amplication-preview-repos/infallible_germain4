@@ -1,0 +1,53 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model PreprocessedData {
+  createdAt     DateTime @default(now())
+  description   String?
+  id            String   @id @default(cuid())
+  name          String?
+  processedFile Json?
+  updatedAt     DateTime @updatedAt
+}
+
+model Dataset {
+  createdAt   DateTime @default(now())
+  dataFile    Json?
+  description String?
+  id          String   @id @default(cuid())
+  name        String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Model {
+  algorithm       String?
+  createdAt       DateTime @default(now())
+  hyperparameters Json?
+  id              String   @id @default(cuid())
+  modelFile       Json?
+  modelName       String?
+  updatedAt       DateTime @updatedAt
+}
+
+model Prediction {
+  createdAt        DateTime @default(now())
+  id               String   @id @default(cuid())
+  inputData        Json?
+  predictionResult Json?
+  updatedAt        DateTime @updatedAt
+}
+
+model Evaluation {
+  accuracy        Float?
+  confusionMatrix Json?
+  createdAt       DateTime @default(now())
+  id              String   @id @default(cuid())
+  loss            Float?
+  updatedAt       DateTime @updatedAt
+}
